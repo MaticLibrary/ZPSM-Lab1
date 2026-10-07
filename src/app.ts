@@ -4,51 +4,51 @@ const calculator = new Calculator();
 
 const [, , operation, ...args] = process.argv;
 
-const numbers = args.map(Number);
-
-if (numbers.some(Number.isNaN)) {
-  console.error('All arguments must be numbers.');
+if (!operation) {
+  console.error('Missing operation.');
+  console.error('Use: add, multiply, subtract or divide.');
   process.exit(1);
 }
 
-switch (operation) {
-  case 'add':
-    console.log(calculator.add(...numbers));
-    break;
+const numbers = args.map(Number);
 
-  case 'multiply':
-    console.log(calculator.multiply(...numbers));
-    break;
+if (numbers.length === 0 || numbers.some(Number.isNaN)) {
+  console.error('You must provide valid numbers.');
+  process.exit(1);
+}
 
-  case 'subtract':
-    if (numbers.length !== 2) {
-      console.error('Subtract requires exactly 2 numbers.');
-      process.exit(1);
-    }
+try {
+  switch (operation) {
+    case 'add':
+      console.log(calculator.add(...numbers));
+      break;
 
-    console.log(calculator.subtract(numbers[0], numbers[1]));
-    break;
+    case 'multiply':
+      console.log(calculator.multiply(...numbers));
+      break;
 
-  case 'divide':
-    if (numbers.length !== 2) {
-      console.error('Divide requires exactly 2 numbers.');
-      process.exit(1);
-    }
+    case 'subtract':
+      if (numbers.length !== 2) {
+        throw new Error('Subtract requires exactly 2 numbers.');
+      }
 
-    try {
+      console.log(calculator.subtract(numbers[0], numbers[1]));
+      break;
+
+    case 'divide':
+      if (numbers.length !== 2) {
+        throw new Error('Divide requires exactly 2 numbers.');
+      }
+
       console.log(calculator.divide(numbers[0], numbers[1]));
-    } catch (error) {
-      console.error((error as Error).message);
-      process.exit(1);
-    }
+      break;
 
-    break;
-
-  default:
-    console.log('Usage:');
-    console.log('  npm.cmd start add 1 2 3');
-    console.log('  npm.cmd start multiply 2 3 4');
-    console.log('  npm.cmd start subtract 10 4');
-    console.log('  npm.cmd start divide 10 2');
-    process.exit(1);
+    default:
+      throw new Error(
+        `Unknown operation: ${operation}`,
+      );
+  }
+} catch (error) {
+  console.error((error as Error).message);
+  process.exit(1);
 }
