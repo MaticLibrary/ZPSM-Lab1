@@ -1,23 +1,60 @@
-import { sum } from './sum.ts';
-
 export class Calculator {
-  add(...values: number[]): number {
-    return sum(...values);
+  private readonly values: number[];
+  private readonly rejected: unknown[];
+
+  constructor(input: unknown[]) {
+    this.values = input.filter(
+      (value): value is number =>
+        typeof value === 'number' && Number.isFinite(value)
+    );
+
+    this.rejected = input.filter(
+      (value) =>
+        typeof value !== 'number' || !Number.isFinite(value)
+    );
+
+    this.rejected.forEach((value) => {
+      console.log(`Rejected value: ${String(value)}`);
+    });
   }
 
-  multiply(...values: number[]): number {
-    return values.reduce((total, value) => total * value, 1);
+  add(): number {
+    return this.values.reduce(
+      (total, value) => total + value,
+      0
+    );
   }
 
-  subtract(a: number, b: number): number {
-    return a - b;
-  }
-
-  divide(a: number, b: number): number {
-    if (b === 0) {
-      throw new Error('Cannot divide by zero');
+  subtract(): number {
+    if (this.values.length === 0) {
+      return 0;
     }
 
-    return a / b;
+    return this.values.slice(1).reduce(
+      (result, value) => result - value,
+      this.values[0]
+    );
+  }
+
+  multiply(): number {
+    return this.values.reduce(
+      (result, value) => result * value,
+      1
+    );
+  }
+
+  divide(): number {
+    if (this.values.length === 0) {
+      return 0;
+    }
+
+    if (this.values.slice(1).some((value) => value === 0)) {
+      return 0;
+    }
+
+    return this.values.slice(1).reduce(
+      (result, value) => result / value,
+      this.values[0]
+    );
   }
 }
