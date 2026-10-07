@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { sum } from './sum.ts';
+import { sum } from '../src/sum.ts';
+
 
 describe('sum', () => {
   test('dodaje liczby', () => {
