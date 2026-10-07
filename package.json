@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "scripts": {
-    "start": "node src/app.ts",
-    "check": "tsc --noEmit"
-  },
+ "scripts": {
+  "start": "node src/app.ts",
+  "check": "tsc --noEmit",
+  "proof": "tsx src/proof.ts"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
 }
