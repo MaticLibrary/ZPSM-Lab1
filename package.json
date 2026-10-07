@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-"scripts": {
-  "start": "node src/app.ts",
-  "check": "tsc --noEmit",
-  "proof": "tsx src/proof.ts",
-  "test": "vitest run"
-},
+  "scripts": {
+    "start": "node src/app.ts",
+    "check": "tsc --noEmit",
+    "test": "vitest run"
+  },
 
   "keywords": [],
   "author": "",
