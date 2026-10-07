@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
- "scripts": {
+"scripts": {
   "start": "node src/app.ts",
   "check": "tsc --noEmit",
-  "proof": "tsx src/proof.ts"
+  "proof": "tsx src/proof.ts",
+  "test": "vitest run"
 },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^26.6.4",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
   }
 }
